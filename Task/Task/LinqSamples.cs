@@ -34,7 +34,7 @@ namespace SampleQueries
         public void Linq1()
         {
             var products =
-                from p in dataSource.customerList
+                from p in dataSource.Customers
                 select p;
 
             foreach (var p in products)

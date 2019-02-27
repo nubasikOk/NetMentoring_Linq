@@ -9,9 +9,9 @@ namespace Task.Data
 {
 	public class DataSource
 	{
-		public List<Product> productList;
-		public List<Customer> customerList;
-		public List<Supplier> supplierList;
+		private List<Product> productList;
+        private List<Customer> customerList;
+        private List<Supplier> supplierList;
 
 		public List<Product> Products
 		{

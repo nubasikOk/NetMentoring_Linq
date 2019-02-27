@@ -7,4 +7,3 @@ C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Task\obj\Debug\Ta
 C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Task\obj\Debug\Task.csproj.CoreCompileInputs.cache
 C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Task\obj\Debug\Task.exe
 C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Task\obj\Debug\Task.pdb
-C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Task\obj\Debug\Task.csprojAssemblyReference.cache

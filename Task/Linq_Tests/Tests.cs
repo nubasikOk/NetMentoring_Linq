@@ -65,7 +65,43 @@ namespace Linq.Tests
                 }
             }
         }
+        [TestMethod]
+        public void Linq_Task3()
+        {
+            int sum = 10000;
+            var result = dataSource.Customers.Where(customer => customer.Orders.Any(order => order.Total > sum)).ToList();
+            foreach (var customer in result)
+            {
+                foreach(var order in customer.Orders.Where(order=>order.Total>sum))
+                {
+                    Console.WriteLine($"{customer.CompanyName}  -  {order.Total}");                
+                }
+            }
 
         
+        }
+
+
+        [TestMethod]
+        public void Linq_Task4()
+        {
+
+            var customers = dataSource.Customers.Where(customer => customer.Orders.Any()).Select(customer => new
+            {
+                customer.CompanyName,
+                DataStart = customer.Orders.Min(order => order.OrderDate)
+            }                                
+            ).ToList();
+
+            foreach (var cust in customers)
+            {
+                Console.WriteLine($"{cust.CompanyName} -  {cust.DataStart}");
+            }
+            
+
+
+        }
+
+
     }
 }
