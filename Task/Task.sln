@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task", "Task\Task.csproj", "{C770ED8F-6F5E-4DED-92C6-D5FE544DE764}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq_Tests", "Linq_Tests\Linq_Tests.csproj", "{A14EDA4C-D844-4E58-B3B5-74F28965762C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{C770ED8F-6F5E-4DED-92C6-D5FE544DE764}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C770ED8F-6F5E-4DED-92C6-D5FE544DE764}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C770ED8F-6F5E-4DED-92C6-D5FE544DE764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A14EDA4C-D844-4E58-B3B5-74F28965762C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A14EDA4C-D844-4E58-B3B5-74F28965762C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A14EDA4C-D844-4E58-B3B5-74F28965762C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A14EDA4C-D844-4E58-B3B5-74F28965762C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CBD1FE7-A328-49FD-804A-C080ED87E75E}
 	EndGlobalSection
 EndGlobal

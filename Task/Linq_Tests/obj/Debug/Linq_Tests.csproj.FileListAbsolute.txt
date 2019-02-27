@@ -1,0 +1,17 @@
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Linq_Tests.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Linq_Tests.pdb
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Task.exe
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Task.pdb
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Task.exe.config
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\obj\Debug\Linq_Tests.csprojAssemblyReference.cache
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\obj\Debug\Linq_Tests.csproj.CoreCompileInputs.cache
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\obj\Debug\Linq_Tests.csproj.CopyComplete
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\obj\Debug\Linq_Tests.dll
+C:\Users\Viachaslau_Kitsun\source\repos\NetMentoring_Linq\Task\Linq_Tests\obj\Debug\Linq_Tests.pdb

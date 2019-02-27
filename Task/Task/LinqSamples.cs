@@ -26,40 +26,22 @@ namespace SampleQueries
 		private DataSource dataSource = new DataSource();
 
 		[Category("Restriction Operators")]
-		[Title("Where - Task 1")]
-		[Description("This sample uses the where clause to find all elements of an array with a value less than 5.")]
-		public void Linq1()
-		{
-			int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+        [Title("Where - Task 3")]
+        [Description("Выдайте список всех клиентов, чей суммарный оборот (сумма всех заказов) " +
+            " превосходит некоторую величину X. Продемонстрируйте выполнение запроса с различными X " +
+            "(подумайте, можно ли обойтись без копирования запроса несколько раз)")]
 
-			var lowNums =
-				from num in numbers
-				where num < 5
-				select num;
+        public void Linq1()
+        {
+            var products =
+                from p in dataSource.customerList
+                select p;
 
-			Console.WriteLine("Numbers < 5:");
-			foreach (var x in lowNums)
-			{
-				Console.WriteLine(x);
-			}
-		}
+            foreach (var p in products)
+            {
+                ObjectDumper.Write(p);
+            }
+        }
 
-		[Category("Restriction Operators")]
-		[Title("Where - Task 2")]
-		[Description("This sample return return all presented in market products")]
-
-		public void Linq2()
-		{
-			var products =
-				from p in dataSource.Products
-				where p.UnitsInStock > 0
-				select p;
-
-			foreach (var p in products)
-			{
-				ObjectDumper.Write(p);
-			}
-		}
-
-	}
+    }
 }
