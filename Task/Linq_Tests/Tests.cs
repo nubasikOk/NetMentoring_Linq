@@ -231,6 +231,53 @@ namespace Linq.Tests
         [TestMethod]
         public void Linq_Task10()
         {
+            var orders = dataSource.Customers.SelectMany(customer => customer.Orders).ToList();
+
+
+            var statsByYearAndMonth = orders.GroupBy(order => new
+            {
+                Year = order.OrderDate.ToString("yyyy"),
+                Month = order.OrderDate.ToString("MM")
+            },
+            (date,count) => new
+            {
+                Date=$"{ date.Year}-{date.Month}",
+                CountOrders=count.Count()
+            }).OrderBy(r=>r.Date).ToList();
+
+            Console.WriteLine("List by year and month:");
+            foreach(var item in statsByYearAndMonth)
+            {
+                Console.WriteLine($"{item.Date}   {item.CountOrders}");
+            }
+
+
+            var statsByYear = orders.GroupBy(order => order.OrderDate.ToString("yyyy"), 
+            (year,count) => new
+            {
+                Year = year,
+                Count = count.Count()
+            }).OrderBy(r => r.Year).ToList();
+
+            Console.WriteLine("List by year");
+            foreach (var item in statsByYear)
+            {
+                Console.WriteLine($"{item.Year}   {item.Count}");
+            }
+
+
+            var statsByMonth = orders.GroupBy(order => order.OrderDate.ToString("MMMMMM"),
+           (month, count) => new
+           {
+               Month = month,
+               Count = count.Count()
+           }).OrderBy(r => r.Month).ToList();
+
+            Console.WriteLine("List by month");
+            foreach (var item in statsByMonth)
+            {
+                Console.WriteLine($"{item.Month}   {item.Count}");
+            }
 
         }
 
