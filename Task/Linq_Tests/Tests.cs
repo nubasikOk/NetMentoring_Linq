@@ -55,23 +55,29 @@ namespace Linq.Tests
                 Suppliers = x.Select(y => y.Supplier).ToList()
             }).ToList();
 
-            foreach (var customer in resultWithoutGroup)
+            foreach (var customer in groupJoinResult)
             {
                 Console.WriteLine(customer.CustomerID);
                 foreach (Supplier supplier in customer.Suppliers)
                 {
-                    Console.WriteLine($@"{supplier.SupplierName} : {supplier.Country}, {supplier.City}");
+                    Console.WriteLine($"{supplier.SupplierName} : {supplier.Country}, {supplier.City}");
                 }
             }
         }
+
+
+
         [TestMethod]
         public void Linq_Task3()
         {
             int sum = 10000;
-            System.Collections.Generic.List<Customer> result = dataSource.Customers.Where(customer => customer.Orders.Any(order => order.Total > sum)).ToList();
-            foreach (Customer customer in result)
+            var result = 
+                dataSource.Customers.Where(
+                    customer => customer.Orders.Any(order => order.Total > sum)
+                    ).ToList();
+            foreach (var customer in result)
             {
-                foreach (Order order in customer.Orders.Where(order => order.Total > sum))
+                foreach (var order in customer.Orders.Where(order => order.Total > sum))
                 {
                     Console.WriteLine($"{customer.CompanyName}  -  {order.Total}");
                 }
@@ -139,10 +145,10 @@ namespace Linq.Tests
         public void Linq_Task6()
         {
 
-            System.Collections.Generic.IEnumerable<Customer> customers = dataSource.Customers.Where(customer => isRequirmentsTrue(customer));
-            foreach (Customer item in customers)
+            var customers = dataSource.Customers.Where(customer => isRequirmentsTrue(customer));
+            foreach (var item in customers)
             {
-                Console.WriteLine($"{item.CustomerID}: {item.Region ?? "No region" } {item.PostalCode}, {item.Phone} ");
+                Console.WriteLine($"{item.CompanyName}: {item.Region = "No region" } {item.PostalCode}, {item.Phone} ");
             }
 
         }
@@ -176,8 +182,58 @@ namespace Linq.Tests
             }
         }
 
+        [TestMethod]
+        public void Linq_Task8()
+        {
+            int averageLimit = 20;
+            int expensiveLimit = 50;
 
-       
+            var result = dataSource.Products.GroupBy(
+                product => product.UnitPrice < averageLimit ? "Cheap products" :
+                product.UnitPrice >= averageLimit &&
+                product.UnitPrice < expensiveLimit ? "Average products" : "Expensive products",
+                (category, products) => new
+                {
+                    Category = category,
+                    Products = products.OrderBy(product => product.UnitPrice).ToList()
+                });
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Category);
+                Console.WriteLine();
+                foreach (var product in item.Products)
+                {
+                    Console.WriteLine($"{product.ProductName} -   {product.UnitPrice}");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        [TestMethod]
+        public void Linq_Task9()
+        {
+
+            var result = dataSource.Customers.GroupBy(customer => customer.City, (city, customers) => new
+            {
+                City = city,
+                averageProfability = customers.Average(customer => customer.Orders.Sum(order => order.Total)),
+                averageIntensivity = customers.Average(customer => customer.Orders.Length)
+            });
+
+            foreach(var item in result)
+            {
+                Console.WriteLine($"city: {item.City}  average profitability: {item.averageProfability}   average intensivity:  {item.averageIntensivity}");
+            }
+        }
+
+
+        [TestMethod]
+        public void Linq_Task10()
+        {
+
+        }
+
     }
 }
 
