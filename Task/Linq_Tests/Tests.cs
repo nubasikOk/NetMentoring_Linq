@@ -28,20 +28,20 @@ namespace Linq.Tests
             var groupJoinResult = dataSource.Customers.GroupJoin(dataSource.Suppliers,
                 customer => new { customer.City, customer.Country },
                 supplier => new { supplier.City, supplier.Country },
-            (customer, suppliers) => new
-            {
-                customer.CustomerID,
-                Suppliers = suppliers
-            }).Where(r => r.Suppliers.Any()).ToList();
+                (customer, suppliers) => new
+                 {
+                    customer.CustomerID,
+                    suppliers
+                 }).Where(r => r.suppliers.Any());
 
             var resultWithoutGroup = dataSource.Customers
                 .Select(customer => new
                 {
-                customer.CustomerID,
-                Suppliers = dataSource.Suppliers.Where(supplier => 
-                supplier.City == customer.City && supplier.Country == customer.Country)
+                    customer.CustomerID,
+                    suppliers = dataSource.Suppliers.Where(supplier => 
+                    supplier.City == customer.City && supplier.Country == customer.Country)
                 })
-                .Where(x => x.Suppliers.Any()).ToList();
+                .Where(x => x.suppliers.Any());
 
                 var joinWithGroupResult = dataSource.Customers.Join(dataSource.Suppliers,
                 customer => new { customer.City, customer.Country },
@@ -49,19 +49,19 @@ namespace Linq.Tests
                 (customer, supplier) => new
                 {
                     customer.CustomerID,
-                    supplier = supplier
+                    supplier
                 })
-                .GroupBy(r => r.CustomerID).Select(
-                x => new
+                .GroupBy(cust=> cust.CustomerID).Select(
+                cust => new
                 {
-                CustomerID = x.Key,
-                Suppliers = x.Select(y => y.supplier)
-            }).ToList();
+                customerID = cust.Key,
+                suppliers = cust.Select(item => item.supplier)
+            });
 
             foreach (var customer in groupJoinResult)
             {
                 Console.WriteLine(customer.CustomerID);
-                foreach (var supplier in customer.Suppliers)
+                foreach (var supplier in customer.suppliers)
                 {
                     Console.WriteLine($"{supplier.SupplierName} : {supplier.Country}, {supplier.City}");
                 }
@@ -75,9 +75,7 @@ namespace Linq.Tests
         {
             int sum = 10000;
             var customers =
-                dataSource.Customers.Where(
-                    customer => customer.Orders.Any(order => order.Total > sum)
-                    ).ToList();
+                dataSource.Customers.Where(customer => customer.Orders.Any(order => order.Total > sum));
             foreach (var customer in customers)
             {
                 foreach (var order in customer.Orders.Where(order => order.Total > sum))
@@ -98,8 +96,7 @@ namespace Linq.Tests
             {
                 customer.CompanyName,
                 dataStart = customer.Orders.Min(order => order.OrderDate)
-            }
-            ).ToList();
+            });
 
             foreach (var customer in customers)
             {
@@ -120,7 +117,7 @@ namespace Linq.Tests
                 ordersTotal = customer.Orders.Sum(order => order.Total),
                 dataStart = customer.Orders.Min(order => order.OrderDate)
             }
-            ).ToList()
+            )
             .OrderBy(customer => customer.dataStart.Year)
             .ThenBy(customer => customer.dataStart.Month)
             .ThenByDescending(customer => customer.ordersTotal)
@@ -132,7 +129,7 @@ namespace Linq.Tests
             }
         }
 
-        private bool isRequirmentsTrue(Customer customer)
+        private bool isRequirementsTrue(Customer customer)
         {
             bool isPostalCodeContainsOnlyDigit = customer.PostalCode?.All(char.IsDigit) ?? false;
             bool isRegionEmpty = string.IsNullOrEmpty(customer.Region);
@@ -145,7 +142,7 @@ namespace Linq.Tests
         public void Linq_Task6()
         {
 
-            var customers = dataSource.Customers.Where(customer => isRequirmentsTrue(customer));
+            var customers = dataSource.Customers.Where(customer => isRequirementsTrue(customer));
             string region = String.Empty;
             foreach (var item in customers)
             {
@@ -167,7 +164,7 @@ namespace Linq.Tests
                 {
                     count,
                     products = prod.OrderByDescending(p => p.UnitPrice)
-                }).ToList()
+                })
             });
 
             foreach (var product in products)
@@ -184,27 +181,34 @@ namespace Linq.Tests
                 Console.WriteLine();
             }
         }
+        string  CheckConditions(Product product)
+        {
+            const int averageLimit = 20;
+            const int expensiveLimit = 50;
 
+            if (product.UnitPrice < averageLimit)
+                return "Cheap products";
+            if (product.UnitPrice > expensiveLimit)
+                return "Expensive products";
+            else
+                return "Average products";
+        }
         [TestMethod]
         public void Linq_Task8()
         {
-            int averageLimit = 20;
-            int expensiveLimit = 50;  
-            var products = dataSource.Products.GroupBy(
-                product => product.UnitPrice < averageLimit ? "Cheap products" :
-                product.UnitPrice >= averageLimit &&
-                product.UnitPrice < expensiveLimit ? "Average products" : "Expensive products",
+           
+            var products = dataSource.Products.GroupBy(product=>CheckConditions(product),
                 (category, prod) => new
                 {
-                    Category = category,
-                    Products = prod.OrderBy(product => product.UnitPrice).ToList()
+                    category,
+                    products = prod.OrderBy(product => product.UnitPrice)
                 });
 
             foreach (var item in products)
             {
-                Console.WriteLine(item.Category);
+                Console.WriteLine(item.category);
                 Console.WriteLine();
-                foreach (var product in item.Products)
+                foreach (var product in item.products)
                 {
                     Console.WriteLine($"{product.ProductName} -   {product.UnitPrice}");
                 }
@@ -233,52 +237,48 @@ namespace Linq.Tests
         [TestMethod]
         public void Linq_Task10()
         {
-            var orders = dataSource.Customers.SelectMany(customer => customer.Orders).ToList();
-
-
+            var orders = dataSource.Customers.SelectMany(customer => customer.Orders);
             var statsByYearAndMonth = orders.GroupBy(order => new
-            {
-                Year = order.OrderDate.ToString("yyyy"),
-                Month = order.OrderDate.ToString("MM")
-            },
-            (date,count) => new
-            {
-                Date=$"{ date.Year}-{date.Month}",
-                CountOrders=count.Count()
-            }).OrderBy(r=>r.Date).ToList();
+                {
+                    year = order.OrderDate.ToString("yyyy"),
+                    month = order.OrderDate.ToString("MM")
+                },
+                (date,order) => new
+                {
+                    date=$"{ date.year}-{date.month}",
+                    countOrders=order.Average(ord=>ord.Total)
+                }).OrderBy(ord=>ord.date);
 
             Console.WriteLine("List by year and month:");
             foreach(var item in statsByYearAndMonth)
             {
-                Console.WriteLine($"{item.Date}   {item.CountOrders}");
+                Console.WriteLine($"{item.date}   {item.countOrders}");
             }
 
 
-            var statsByYear = orders.GroupBy(order => order.OrderDate.ToString("yyyy"), 
-            (year,count) => new
-            {
-                Year = year,
-                Count = count.Count()
-            }).OrderBy(r => r.Year).ToList();
+            var statsByYear = orders.GroupBy(order => order.OrderDate.ToString("yyyy"), (year,order) => new
+                {
+                    year,
+                    countOrders = order.Average(ord => ord.Total)
+                }).OrderBy(r => r.year);
 
             Console.WriteLine("List by year");
             foreach (var item in statsByYear)
             {
-                Console.WriteLine($"{item.Year}   {item.Count}");
+                Console.WriteLine($"{item.year}   {item.countOrders}");
             }
 
 
-            var statsByMonth = orders.GroupBy(order => order.OrderDate.ToString("MMMMMM"),
-           (month, count) => new
-           {
-               Month = month,
-               Count = count.Count()
-           }).OrderBy(r => r.Month).ToList();
+            var statsByMonth = orders.GroupBy(order => order.OrderDate.ToString("MMMMMM"), (month, order) => new
+                {
+                    month,
+                    countOrders = order.Average(ord => ord.Total)
+                }).OrderBy(ord => ord.month);
 
             Console.WriteLine("List by month");
             foreach (var item in statsByMonth)
             {
-                Console.WriteLine($"{item.Month}   {item.Count}");
+                Console.WriteLine($"{item.month}   {item.countOrders}");
             }
 
         }
